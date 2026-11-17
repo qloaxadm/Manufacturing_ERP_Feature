@@ -377,7 +377,7 @@ export class GateRiskAnalysis {
   @Column({ type: 'varchar', length: 255, nullable: true })
   reviewed_by_name: string;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   review_timestamp: Date;
 
   @Column({ type: 'text', nullable: true })
@@ -476,7 +476,7 @@ export class DailySecurityBriefing {
   @Column({ type: 'text', nullable: true })
   executive_summary: string;
 
-  @Column({ type: 'longtext', nullable: true }) // JSON array of structured consolidated events
+  @Column({ type: 'text', nullable: true }) // JSON array of structured consolidated events
   events: string;
 
   @Column({ type: 'varchar', length: 30, default: 'generated' }) // 'generated' | 'reviewed'
@@ -554,7 +554,7 @@ export class Notification {
   @Column({ type: 'boolean', default: false })
   is_read: boolean;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   read_at: Date;
 
   @Column({ type: 'varchar', length: 30, default: 'OPEN' })
@@ -563,7 +563,7 @@ export class Notification {
   @Column({ type: 'varchar', length: 255, nullable: true })
   resolved_by_name: string;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   resolved_at: Date;
 
   @Column({ type: 'text', nullable: true })
@@ -572,7 +572,7 @@ export class Notification {
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   expires_at: Date;
 }
 

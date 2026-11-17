@@ -30,10 +30,11 @@ export class BoxesService {
    * Guarantees zero barcode collisions even if historical rows were deleted.
    */
   private async generateNextBarcode(): Promise<string> {
+    const isPg = this.boxRepo.manager.connection.options.type === 'postgres';
     const raw = await this.boxRepo
       .createQueryBuilder('b')
-      .select('MAX(CAST(b.barcode AS UNSIGNED))', 'maxBarcode')
-      .where("b.barcode REGEXP '^[0-9]+$'")
+      .select(isPg ? 'MAX(CAST(b.barcode AS BIGINT))' : 'MAX(CAST(b.barcode AS UNSIGNED))', 'maxBarcode')
+      .where(isPg ? "b.barcode ~ '^[0-9]+$'" : "b.barcode REGEXP '^[0-9]+$'")
       .getRawOne();
 
     let nextNum = raw && raw.maxBarcode ? Number(raw.maxBarcode) + 1 : 200001;

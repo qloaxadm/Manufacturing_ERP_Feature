@@ -99,7 +99,7 @@ export class GateRiskService implements OnModuleInit {
       const failedScanRows: { invoice_barcode: string }[] = await this.dataSource.query(`
         SELECT DISTINCT invoice_barcode 
         FROM gate_scan_log 
-        WHERE is_valid = 0 AND invoice_barcode IS NOT NULL AND invoice_barcode != ''
+        WHERE is_valid = false AND invoice_barcode IS NOT NULL AND invoice_barcode != ''
       `);
 
       for (const row of failedScanRows) {
@@ -117,6 +117,65 @@ export class GateRiskService implements OnModuleInit {
   }
 
   private async ensureTablesExist() {
+    if (this.dataSource.options.type === 'postgres') {
+      await this.dataSource.query(`
+        CREATE TABLE IF NOT EXISTS gate_risk_analysis (
+          id SERIAL PRIMARY KEY,
+          match_id INT NULL,
+          invoice_barcode VARCHAR(50) NOT NULL,
+          invoice_number VARCHAR(50) NULL,
+          customer_id INT NULL,
+          customer_name VARCHAR(255) NULL,
+          part_id INT NULL,
+          part_number VARCHAR(255) NULL,
+          invoice_qty FLOAT DEFAULT 0,
+          risk_score INT DEFAULT 0,
+          risk_level VARCHAR(20) DEFAULT 'LOW',
+          risk_factors TEXT NULL,
+          reasons TEXT NULL,
+          recommendation TEXT NULL,
+          metrics TEXT NULL,
+          model_version VARCHAR(50) DEFAULT 'v1.0-explainable-heuristics',
+          review_status VARCHAR(30) DEFAULT 'not_required',
+          reviewed_by INT NULL,
+          reviewed_by_name VARCHAR(255) NULL,
+          review_timestamp TIMESTAMP NULL,
+          review_note TEXT NULL,
+          review_decision VARCHAR(50) NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+        CREATE INDEX IF NOT EXISTS idx_gate_risk_analysis_match_id ON gate_risk_analysis (match_id);
+        CREATE INDEX IF NOT EXISTS idx_gate_risk_analysis_invoice_barcode ON gate_risk_analysis (invoice_barcode);
+        CREATE INDEX IF NOT EXISTS idx_gate_risk_analysis_risk_level ON gate_risk_analysis (risk_level);
+        CREATE INDEX IF NOT EXISTS idx_gate_risk_analysis_review_status ON gate_risk_analysis (review_status);
+
+        CREATE TABLE IF NOT EXISTS gate_scan_log (
+          id SERIAL PRIMARY KEY,
+          match_id INT NULL,
+          invoice_barcode VARCHAR(50) NULL,
+          scanned_barcode VARCHAR(50) NOT NULL,
+          scan_type VARCHAR(20) NOT NULL,
+          is_valid BOOLEAN DEFAULT TRUE,
+          failure_reason VARCHAR(255) NULL,
+          user_id INT NULL,
+          user_name VARCHAR(255) NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+        CREATE INDEX IF NOT EXISTS idx_gate_scan_log_match_id ON gate_scan_log (match_id);
+        CREATE INDEX IF NOT EXISTS idx_gate_scan_log_invoice_barcode ON gate_scan_log (invoice_barcode);
+
+        CREATE TABLE IF NOT EXISTS gate_risk_config (
+          id SERIAL PRIMARY KEY,
+          config_key VARCHAR(100) NOT NULL UNIQUE,
+          config_value TEXT NOT NULL,
+          description VARCHAR(255) NULL,
+          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+      return;
+    }
+
     // Safely create AI Gate Risk tables if they do not exist
     await this.dataSource.query(`
       CREATE TABLE IF NOT EXISTS gate_risk_analysis (
@@ -1013,7 +1072,7 @@ export class GateRiskService implements OnModuleInit {
     if (query.search && query.search.trim()) {
       const s = `%${query.search.trim()}%`;
       qb = qb.andWhere(
-        '(ra.invoice_barcode LIKE :s OR ra.invoice_number LIKE :s OR ra.customer_name LIKE :s OR ra.part_number LIKE :s OR ra.reasons LIKE :s)',
+        '(LOWER(ra.invoice_barcode) LIKE LOWER(:s) OR LOWER(ra.invoice_number) LIKE LOWER(:s) OR LOWER(ra.customer_name) LIKE LOWER(:s) OR LOWER(ra.part_number) LIKE LOWER(:s) OR LOWER(ra.reasons) LIKE LOWER(:s))',
         { s },
       );
     }

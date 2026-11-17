@@ -47,6 +47,34 @@ export class ActivityLogService implements OnModuleInit {
 
   private async ensureTableExists() {
     try {
+      if (this.dataSource.options.type === 'postgres') {
+        await this.dataSource.query(`
+          CREATE TABLE IF NOT EXISTS audit_activity_log (
+            id SERIAL PRIMARY KEY,
+            user_id INT NULL,
+            user_name VARCHAR(255) NULL,
+            user_role VARCHAR(50) NULL,
+            user_email VARCHAR(255) NULL,
+            action_type VARCHAR(20) NOT NULL,
+            action_title VARCHAR(255) NOT NULL,
+            module VARCHAR(100) NOT NULL,
+            entity_type VARCHAR(100) NULL,
+            entity_id VARCHAR(100) NULL,
+            details TEXT NULL,
+            metadata TEXT NULL,
+            ip_address VARCHAR(50) NULL,
+            created_date VARCHAR(30) NOT NULL,
+            created_time VARCHAR(30) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          );
+          CREATE INDEX IF NOT EXISTS idx_audit_user_id ON audit_activity_log (user_id);
+          CREATE INDEX IF NOT EXISTS idx_audit_action_type ON audit_activity_log (action_type);
+          CREATE INDEX IF NOT EXISTS idx_audit_module ON audit_activity_log (module);
+          CREATE INDEX IF NOT EXISTS idx_audit_created_date ON audit_activity_log (created_date);
+        `);
+        return;
+      }
+
       await this.dataSource.query(`
         CREATE TABLE IF NOT EXISTS audit_activity_log (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -182,7 +210,7 @@ export class ActivityLogService implements OnModuleInit {
     if (query.search && query.search.trim()) {
       const q = `%${query.search.trim()}%`;
       qb.andWhere(
-        '(a.action_title LIKE :q OR a.details LIKE :q OR a.entity_id LIKE :q OR a.user_name LIKE :q OR a.module LIKE :q)',
+        '(LOWER(a.action_title) LIKE LOWER(:q) OR LOWER(a.details) LIKE LOWER(:q) OR LOWER(a.entity_id) LIKE LOWER(:q) OR LOWER(a.user_name) LIKE LOWER(:q) OR LOWER(a.module) LIKE LOWER(:q))',
         { q },
       );
     }
@@ -216,9 +244,10 @@ export class ActivityLogService implements OnModuleInit {
     const total = await baseQb.getCount();
 
     // Counts by action type
-    const insertCount = await baseQb.clone().andWhere('a.action_type = "INSERT"').getCount();
-    const updateCount = await baseQb.clone().andWhere('a.action_type = "UPDATE"').getCount();
-    const deleteCount = await baseQb.clone().andWhere('a.action_type = "DELETE"').getCount();
+    // NOTE: string literals must use single quotes - Postgres reads "INSERT" as a column name.
+    const insertCount = await baseQb.clone().andWhere("a.action_type = 'INSERT'").getCount();
+    const updateCount = await baseQb.clone().andWhere("a.action_type = 'UPDATE'").getCount();
+    const deleteCount = await baseQb.clone().andWhere("a.action_type = 'DELETE'").getCount();
 
     // Breakdown by module
     const modulesRaw = await baseQb

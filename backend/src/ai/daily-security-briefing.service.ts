@@ -82,7 +82,33 @@ export class DailySecurityBriefingService implements OnModuleInit {
   }
 
   private async ensureTableExists() {
-    await this.dataSource.query(`
+    try {
+      if (this.dataSource.options.type === 'postgres') {
+        await this.dataSource.query(`
+          CREATE TABLE IF NOT EXISTS daily_security_briefing (
+            id SERIAL PRIMARY KEY,
+            briefing_date VARCHAR(20) NOT NULL UNIQUE,
+            generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            total_events INT DEFAULT 0,
+            normal_count INT DEFAULT 0,
+            high_priority_count INT DEFAULT 0,
+            medium_priority_count INT DEFAULT 0,
+            low_priority_count INT DEFAULT 0,
+            pending_reviews_count INT DEFAULT 0,
+            executive_summary TEXT NULL,
+            events TEXT NULL,
+            status VARCHAR(30) DEFAULT 'generated',
+            generated_by VARCHAR(50) DEFAULT 'system',
+            engine_version VARCHAR(50) DEFAULT 'v1.0-evidence-consolidator',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          );
+          CREATE INDEX IF NOT EXISTS idx_briefing_date ON daily_security_briefing (briefing_date);
+        `);
+        return;
+      }
+
+      await this.dataSource.query(`
       CREATE TABLE IF NOT EXISTS daily_security_briefing (
         id INT AUTO_INCREMENT PRIMARY KEY,
         briefing_date VARCHAR(20) NOT NULL UNIQUE,
@@ -103,6 +129,9 @@ export class DailySecurityBriefingService implements OnModuleInit {
         INDEX idx_briefing_date (briefing_date)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     `);
+    } catch (err) {
+      console.error('[DailySecurityBriefingService] Table ensure error:', err);
+    }
   }
 
   private formatDateStr(d: any): string {

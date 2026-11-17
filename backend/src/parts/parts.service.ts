@@ -31,6 +31,34 @@ export class PartsService implements OnModuleInit {
 
   private async ensureHistoryTableExists() {
     try {
+      if (this.dataSource.options.type === 'postgres') {
+        await this.dataSource.query(`
+          CREATE TABLE IF NOT EXISTS part_history (
+            id SERIAL PRIMARY KEY,
+            part_id INT NOT NULL,
+            event_type VARCHAR(50) NOT NULL,
+            quantity_change FLOAT NOT NULL DEFAULT 0,
+            previous_qty FLOAT NOT NULL DEFAULT 0,
+            new_qty FLOAT NOT NULL DEFAULT 0,
+            supplier_name VARCHAR(255) NULL,
+            supplier_contact VARCHAR(255) NULL,
+            supplier_invoice_no VARCHAR(100) NULL,
+            supplier_notes TEXT NULL,
+            created_by_user_id INT NULL,
+            created_by_user_name VARCHAR(255) NULL,
+            created_by_user_role VARCHAR(50) NULL,
+            entry_date VARCHAR(30) NOT NULL,
+            entry_time VARCHAR(30) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            notes TEXT NULL
+          );
+          CREATE INDEX IF NOT EXISTS idx_part_history_part_id ON part_history (part_id);
+          CREATE INDEX IF NOT EXISTS idx_part_history_event_type ON part_history (event_type);
+          CREATE INDEX IF NOT EXISTS idx_part_history_entry_date ON part_history (entry_date);
+        `);
+        return;
+      }
+
       await this.dataSource.query(`
         CREATE TABLE IF NOT EXISTS part_history (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -473,11 +501,14 @@ export class PartsService implements OnModuleInit {
   }
 
   async getStockList(search?: string, page = 1, limit = 50): Promise<{ items: any[]; total: number }> {
+    const isPg = this.partRepo.manager.connection.options.type === 'postgres';
     let whereClause = '';
     const params: any[] = [];
 
     if (search && search.trim()) {
-      whereClause = 'WHERE p.part_number LIKE ? OR p.part_description LIKE ?';
+      whereClause = isPg
+        ? 'WHERE p.part_number ILIKE $1 OR p.part_description ILIKE $2'
+        : 'WHERE p.part_number LIKE ? OR p.part_description LIKE ?';
       params.push(`%${search.trim()}%`, `%${search.trim()}%`);
     }
 

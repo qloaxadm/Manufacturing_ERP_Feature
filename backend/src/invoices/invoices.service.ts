@@ -41,10 +41,11 @@ export class InvoicesService {
    * Guarantees zero barcode collisions even if historical rows were deleted.
    */
   private async generateNextBarcode(): Promise<string> {
+    const isPg = this.invoiceRepo.manager.connection.options.type === 'postgres';
     const raw = await this.invoiceRepo
       .createQueryBuilder('i')
-      .select('MAX(CAST(i.barcode AS UNSIGNED))', 'maxBarcode')
-      .where("i.barcode REGEXP '^[0-9]+$'")
+      .select(isPg ? 'MAX(CAST(i.barcode AS BIGINT))' : 'MAX(CAST(i.barcode AS UNSIGNED))', 'maxBarcode')
+      .where(isPg ? "i.barcode ~ '^[0-9]+$'" : "i.barcode REGEXP '^[0-9]+$'")
       .getRawOne();
 
     let nextNum = raw && raw.maxBarcode ? Number(raw.maxBarcode) + 1 : 300001;

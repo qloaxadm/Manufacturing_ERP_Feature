@@ -42,39 +42,75 @@ export class NotificationService implements OnModuleInit {
 
   private async ensureTableExists() {
     try {
-      await this.dataSource.query(`
-        CREATE TABLE IF NOT EXISTS erp_notification (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          recipient_user_id INT NULL,
-          recipient_role VARCHAR(50) DEFAULT 'ALL',
-          type VARCHAR(60) NOT NULL,
-          priority VARCHAR(20) DEFAULT 'INFO',
-          title VARCHAR(255) NOT NULL,
-          message TEXT NOT NULL,
-          reason TEXT NULL,
-          module VARCHAR(100) NULL,
-          actor_name VARCHAR(255) NULL,
-          actor_id INT NULL,
-          actor_role VARCHAR(50) NULL,
-          actor_email VARCHAR(255) NULL,
-          entity_type VARCHAR(50) NULL,
-          entity_id VARCHAR(100) NULL,
-          action_url VARCHAR(255) NULL,
-          metadata TEXT NULL,
-          dedup_key VARCHAR(180) NULL,
-          is_read BOOLEAN DEFAULT FALSE,
-          read_at DATETIME NULL,
-          lifecycle_status VARCHAR(30) DEFAULT 'OPEN',
-          resolved_by_name VARCHAR(255) NULL,
-          resolved_at DATETIME NULL,
-          resolution_note TEXT NULL,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-          expires_at DATETIME NULL,
-          INDEX idx_recipient (recipient_role, is_read),
-          INDEX idx_dedup (dedup_key),
-          INDEX idx_created (created_at)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-      `);
+      if (this.dataSource.options.type === 'postgres') {
+        await this.dataSource.query(`
+          CREATE TABLE IF NOT EXISTS erp_notification (
+            id SERIAL PRIMARY KEY,
+            recipient_user_id INT NULL,
+            recipient_role VARCHAR(50) DEFAULT 'ALL',
+            type VARCHAR(60) NOT NULL,
+            priority VARCHAR(20) DEFAULT 'INFO',
+            title VARCHAR(255) NOT NULL,
+            message TEXT NOT NULL,
+            reason TEXT NULL,
+            module VARCHAR(100) NULL,
+            actor_name VARCHAR(255) NULL,
+            actor_id INT NULL,
+            actor_role VARCHAR(50) NULL,
+            actor_email VARCHAR(255) NULL,
+            entity_type VARCHAR(50) NULL,
+            entity_id VARCHAR(100) NULL,
+            action_url VARCHAR(255) NULL,
+            metadata TEXT NULL,
+            dedup_key VARCHAR(180) NULL,
+            is_read BOOLEAN DEFAULT FALSE,
+            read_at TIMESTAMP NULL,
+            lifecycle_status VARCHAR(30) DEFAULT 'OPEN',
+            resolved_by_name VARCHAR(255) NULL,
+            resolved_at TIMESTAMP NULL,
+            resolution_note TEXT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            expires_at TIMESTAMP NULL
+          );
+          CREATE INDEX IF NOT EXISTS idx_erp_notif_recipient ON erp_notification (recipient_role, is_read);
+          CREATE INDEX IF NOT EXISTS idx_erp_notif_dedup ON erp_notification (dedup_key);
+          CREATE INDEX IF NOT EXISTS idx_erp_notif_created ON erp_notification (created_at);
+        `);
+      } else {
+        await this.dataSource.query(`
+          CREATE TABLE IF NOT EXISTS erp_notification (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            recipient_user_id INT NULL,
+            recipient_role VARCHAR(50) DEFAULT 'ALL',
+            type VARCHAR(60) NOT NULL,
+            priority VARCHAR(20) DEFAULT 'INFO',
+            title VARCHAR(255) NOT NULL,
+            message TEXT NOT NULL,
+            reason TEXT NULL,
+            module VARCHAR(100) NULL,
+            actor_name VARCHAR(255) NULL,
+            actor_id INT NULL,
+            actor_role VARCHAR(50) NULL,
+            actor_email VARCHAR(255) NULL,
+            entity_type VARCHAR(50) NULL,
+            entity_id VARCHAR(100) NULL,
+            action_url VARCHAR(255) NULL,
+            metadata TEXT NULL,
+            dedup_key VARCHAR(180) NULL,
+            is_read BOOLEAN DEFAULT FALSE,
+            read_at DATETIME NULL,
+            lifecycle_status VARCHAR(30) DEFAULT 'OPEN',
+            resolved_by_name VARCHAR(255) NULL,
+            resolved_at DATETIME NULL,
+            resolution_note TEXT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            expires_at DATETIME NULL,
+            INDEX idx_recipient (recipient_role, is_read),
+            INDEX idx_dedup (dedup_key),
+            INDEX idx_created (created_at)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        `);
+      }
 
       // Ensure reason, module, and actor columns exist in existing table
       const addColumnSafe = async (colDef: string) => {
@@ -194,25 +230,26 @@ export class NotificationService implements OnModuleInit {
 
     qb.andWhere(
       new Brackets((subQb) => {
+        // NOTE: SQL string literals use single quotes - Postgres reads "ALL" as a column name.
         if (role === 'packing') {
           subQb.where(
-            '(n.recipient_role = "ALL" OR n.recipient_role = "packing" OR n.recipient_role LIKE "%packing%" OR n.module LIKE "%Packing%" OR n.module LIKE "%Part Master%" OR n.module LIKE "%Inventory%" OR n.type LIKE "%STOCK%")'
+            "(n.recipient_role = 'ALL' OR n.recipient_role = 'packing' OR n.recipient_role LIKE '%packing%' OR n.module LIKE '%Packing%' OR n.module LIKE '%Part Master%' OR n.module LIKE '%Inventory%' OR n.type LIKE '%STOCK%')"
           );
         } else if (role === 'box') {
           subQb.where(
-            '(n.recipient_role = "ALL" OR n.recipient_role = "box" OR n.recipient_role LIKE "%box%" OR n.module LIKE "%Box%" OR n.type LIKE "%BOX%" OR n.module LIKE "%Invoice Box%")'
+            "(n.recipient_role = 'ALL' OR n.recipient_role = 'box' OR n.recipient_role LIKE '%box%' OR n.module LIKE '%Box%' OR n.type LIKE '%BOX%' OR n.module LIKE '%Invoice Box%')"
           );
         } else if (role === 'invoice') {
           subQb.where(
-            '(n.recipient_role = "ALL" OR n.recipient_role = "invoice" OR n.recipient_role LIKE "%invoice%" OR n.module LIKE "%Invoice%" OR n.type LIKE "%INVOICE%")'
+            "(n.recipient_role = 'ALL' OR n.recipient_role = 'invoice' OR n.recipient_role LIKE '%invoice%' OR n.module LIKE '%Invoice%' OR n.type LIKE '%INVOICE%')"
           );
         } else if (role === 'gate') {
           subQb.where(
-            '(n.recipient_role = "ALL" OR n.recipient_role = "gate" OR n.recipient_role LIKE "%gate%" OR n.module LIKE "%Gate%" OR n.type LIKE "%GATE%" OR n.type LIKE "%BARCODE%")'
+            "(n.recipient_role = 'ALL' OR n.recipient_role = 'gate' OR n.recipient_role LIKE '%gate%' OR n.module LIKE '%Gate%' OR n.type LIKE '%GATE%' OR n.type LIKE '%BARCODE%')"
           );
         } else {
           subQb.where(
-            '(n.recipient_role = "ALL" OR n.recipient_role = :role OR n.recipient_role LIKE :rolePattern)',
+            "(n.recipient_role = 'ALL' OR n.recipient_role = :role OR n.recipient_role LIKE :rolePattern)",
             { role, rolePattern: `%${role}%` }
           );
         }
@@ -267,7 +304,7 @@ export class NotificationService implements OnModuleInit {
     if (query.search && query.search.trim()) {
       const searchPattern = `%${query.search.trim()}%`;
       qb.andWhere(
-        '(n.title LIKE :s OR n.message LIKE :s OR n.entity_id LIKE :s OR n.reason LIKE :s OR n.module LIKE :s)',
+        '(LOWER(n.title) LIKE LOWER(:s) OR LOWER(n.message) LIKE LOWER(:s) OR LOWER(n.entity_id) LIKE LOWER(:s) OR LOWER(n.reason) LIKE LOWER(:s) OR LOWER(n.module) LIKE LOWER(:s))',
         { s: searchPattern },
       );
     }
@@ -392,15 +429,15 @@ export class NotificationService implements OnModuleInit {
 
     if (userRole !== 'admin') {
       if (userRole === 'packing') {
-        qb.andWhere('(recipient_role = "ALL" OR recipient_role LIKE "%packing%" OR module LIKE "%Packing%" OR module LIKE "%Part Master%")');
+        qb.andWhere("(recipient_role = 'ALL' OR recipient_role LIKE '%packing%' OR module LIKE '%Packing%' OR module LIKE '%Part Master%')");
       } else if (userRole === 'box') {
-        qb.andWhere('(recipient_role = "ALL" OR recipient_role LIKE "%box%" OR module LIKE "%Box%")');
+        qb.andWhere("(recipient_role = 'ALL' OR recipient_role LIKE '%box%' OR module LIKE '%Box%')");
       } else if (userRole === 'invoice') {
-        qb.andWhere('(recipient_role = "ALL" OR recipient_role LIKE "%invoice%" OR module LIKE "%Invoice%")');
+        qb.andWhere("(recipient_role = 'ALL' OR recipient_role LIKE '%invoice%' OR module LIKE '%Invoice%')");
       } else if (userRole === 'gate') {
-        qb.andWhere('(recipient_role = "ALL" OR recipient_role LIKE "%gate%" OR module LIKE "%Gate%")');
+        qb.andWhere("(recipient_role = 'ALL' OR recipient_role LIKE '%gate%' OR module LIKE '%Gate%')");
       } else {
-        qb.andWhere('(recipient_role = "ALL" OR recipient_role = :role OR recipient_role LIKE :rolePattern)', {
+        qb.andWhere("(recipient_role = 'ALL' OR recipient_role = :role OR recipient_role LIKE :rolePattern)", {
           role: userRole,
           rolePattern: `%${userRole}%`,
         });

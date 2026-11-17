@@ -39,12 +39,15 @@ import { HealthController } from './health/health.controller';
 
 dotenv.config();
 
-const isSslEnabled = process.env.DB_SSL === 'true';
+const dbUrl = process.env.DATABASE_URL || '';
+const isPostgres = dbUrl.startsWith('postgres') || process.env.DB_TYPE === 'postgres';
+// Postgres (Supabase) defaults to SSL on; set DB_SSL=false explicitly for a local Postgres without TLS.
+const isSslEnabled = process.env.DB_SSL ? process.env.DB_SSL === 'true' : isPostgres;
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: isPostgres ? 'postgres' : 'mysql',
       ...(process.env.DATABASE_URL
         ? { url: process.env.DATABASE_URL }
         : {
@@ -74,10 +77,12 @@ const isSslEnabled = process.env.DB_SSL === 'true';
         PartHistory,
         AuditActivityLog,
       ],
-      extra: {
-        connectionLimit: 25,
-        connectTimeout: 10000,
-      },
+      extra: isPostgres
+        ? (isSslEnabled ? { ssl: { rejectUnauthorized: false } } : {})
+        : {
+            connectionLimit: 25,
+            connectTimeout: 10000,
+          },
       synchronize: false, // Do not alter the legacy database schema!
     }),
     ActivityLogModule,

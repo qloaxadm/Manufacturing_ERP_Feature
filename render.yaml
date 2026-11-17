@@ -23,9 +23,15 @@ services:
         value: barcode
       - key: DB_SSL
         value: "true"
+      - key: DATABASE_URL
+        sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_URL
         sync: false
       - key: CORS_ORIGINS
         sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-flash-latest
