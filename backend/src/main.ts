@@ -1,3 +1,7 @@
+// Must be the first import: auth.module.ts reads JWT_SECRET while it is being imported, which is
+// before app.module.ts calls dotenv.config(). Without this, tokens are signed with the fallback
+// secret but verified with the .env secret and every authenticated request returns 401 locally.
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';

@@ -2,7 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
 
-const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://postgres.oxdhhrgrkkqrfjydejyv:MARVEL7ace%404077090@aws-0-ap-south-1.pooler.supabase.com:6543/postgres';
+// Supabase connection string comes from the environment only - never hardcode it in source.
+const DATABASE_URL = process.env.DATABASE_URL;
+if (!DATABASE_URL) {
+  console.error('Set DATABASE_URL (your Supabase pooler connection string) before running this script.');
+  process.exit(1);
+}
 
 async function migrate() {
   console.log('========================================================');

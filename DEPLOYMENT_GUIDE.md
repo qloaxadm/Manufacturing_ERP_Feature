@@ -30,7 +30,27 @@ This guide walks you through deploying the **Manufacturing ERP System** with:
 
 ---
 
-## Step 1: Cloud MySQL Database Setup
+## Step 1 (current setup): Supabase (Postgres)
+
+The app now runs on **Supabase**. The backend switches to Postgres automatically when `DATABASE_URL` starts with `postgres` (or `DB_TYPE=postgres`).
+
+1. In the Supabase dashboard open **Connect** and copy the **Session pooler** connection string (port `5432`), or the **Transaction pooler** string (port `6543`).
+   Use a pooler host (`aws-0-<region>.pooler.supabase.com`): the direct `db.<ref>.supabase.co` host is IPv6-only and is not reachable from Render.
+2. Set these backend variables (Render dashboard, or `backend/.env` locally):
+
+   | Key | Value |
+   |-----|-------|
+   | `DB_TYPE` | `postgres` |
+   | `DATABASE_URL` | the pooler connection string (URL-encode special characters in the password) |
+   | `DB_SSL` | `true` |
+
+3. Schema and data: the ten core tables (`parts`, `packing`, `box`, `invoice`, ...) already exist in the project's Supabase database. The remaining tables (notifications, audit log, gate-risk, part history, daily briefing) are created automatically by the backend on first start.
+   **Do not run `Dump20260919.sql` against Supabase** - it is MySQL syntax and will fail on Postgres. It is only for the MySQL path below.
+4. The API behaves the same on both databases. When writing new SQL, use single quotes for string literals (`'ALL'`, not `"ALL"`) and `ILIKE`/`ILike()` or `LOWER(col) LIKE LOWER(:x)` for case-insensitive search.
+
+---
+
+## Step 1 (alternative): Cloud MySQL Database Setup
 
 Render does not offer a free managed MySQL service natively. You can use any cloud MySQL provider (such as **Aiven for MySQL**, **Railway**, **Clever Cloud**, or **TiDB Cloud**).
 

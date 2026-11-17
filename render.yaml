@@ -11,20 +11,15 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: DB_HOST
-        sync: false
-      - key: DB_PORT
-        value: "3306"
-      - key: DB_USER
-        sync: false
-      - key: DB_PASS
-        sync: false
-      - key: DB_NAME
-        value: barcode
-      - key: DB_SSL
-        value: "true"
+      # Database: Supabase (Postgres). Paste the "Session pooler" connection string
+      # (Supabase dashboard -> Connect). Render is IPv4-only, so use the pooler host
+      # (aws-0-<region>.pooler.supabase.com), not the direct db.<ref>.supabase.co host.
+      - key: DB_TYPE
+        value: postgres
       - key: DATABASE_URL
         sync: false
+      - key: DB_SSL
+        value: "true"
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_URL
