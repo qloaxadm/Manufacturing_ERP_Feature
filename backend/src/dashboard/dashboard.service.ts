@@ -720,6 +720,7 @@ export class DashboardService {
       .createQueryBuilder('p')
       .where('p.qty <= 50 AND p.qty > 0')
       .orderBy('p.qty', 'ASC')
+      .addOrderBy('p.id', 'ASC') // deterministic tie-break (Postgres/MySQL otherwise return ties in different orders)
       .take(3)
       .getMany();
 

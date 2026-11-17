@@ -255,6 +255,7 @@ export class ActivityLogService implements OnModuleInit {
       .select('a.module', 'module')
       .addSelect('COUNT(a.id)', 'count')
       .groupBy('a.module')
+      .orderBy('a.module', 'ASC') // MySQL happened to sort GROUP BY output; Postgres does not
       .getRawMany();
 
     const modules = modulesRaw.map((m) => ({

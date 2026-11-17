@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like, In } from 'typeorm';
+import { Repository, ILike, In } from 'typeorm';
 import {
   Part,
   Invoice,
@@ -824,7 +824,7 @@ export class AskErpService {
     // 1. Alias: SJOINT or S SJOINT
     if (term.toUpperCase() === 'SJOINT' || (fullQuery && fullQuery.toLowerCase().includes('sjoint'))) {
       const sjointPart = await this.partRepo.findOne({
-        where: [{ id: 1825 }, { part_number: Like('%D16.064.34.0.PR%') }],
+        where: [{ id: 1825 }, { part_number: ILike('%D16.064.34.0.PR%') }],
       });
       if (sjointPart) return sjointPart;
     }
@@ -847,13 +847,13 @@ export class AskErpService {
       // B. Substring match on part_number (only if term length >= 3)
       if (term.length >= 3) {
         part = await this.partRepo.findOne({
-          where: { part_number: Like(`%${term}%`) },
+          where: { part_number: ILike(`%${term}%`) },
         });
         if (part) return part;
 
         // D. Substring match on part_description
         part = await this.partRepo.findOne({
-          where: { part_description: Like(`%${term}%`) },
+          where: { part_description: ILike(`%${term}%`) },
         });
         if (part) return part;
       }
@@ -884,8 +884,8 @@ export class AskErpService {
           where: [
             { part_number: tok },
             { part_number: `\t${tok}` },
-            { part_number: Like(`%${tok}%`) },
-            { part_description: Like(`%${tok}%`) },
+            { part_number: ILike(`%${tok}%`) },
+            { part_description: ILike(`%${tok}%`) },
           ],
         });
         if (found) return found;

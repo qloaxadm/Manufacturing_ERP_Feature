@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like, DataSource } from 'typeorm';
+import { Repository, ILike, DataSource } from 'typeorm';
 import { Part, Packing, BoxPacking, Invoice, PartHistory, UserInfo } from '../entities';
 import { NotificationService } from '../notifications/notifications.service';
 import { ActivityLogService } from '../activity-log/activity-log.service';
@@ -92,9 +92,10 @@ export class PartsService implements OnModuleInit {
     let where: any = {};
     if (search && search.trim()) {
       const q = `%${search.trim()}%`;
+      // ILike: case-insensitive on both MySQL (UPPER() LIKE UPPER()) and Postgres (ILIKE).
       where = [
-        { part_number: Like(q) },
-        { part_description: Like(q) },
+        { part_number: ILike(q) },
+        { part_description: ILike(q) },
       ];
     }
 
