@@ -7,6 +7,7 @@
     "postinstall": "npm --prefix backend install",
     "build": "npm --prefix backend install && npm --prefix backend run build",
     "start": "npm --prefix backend run start",
+    "dev": "npm --prefix backend run start",
     "build:backend": "npm --prefix backend run build",
     "build:frontend": "npm --prefix frontend run build",
     "dev:backend": "npm --prefix backend run start:dev",
