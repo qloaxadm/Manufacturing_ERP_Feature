@@ -162,7 +162,7 @@ You can deploy the backend using the included **Render Blueprint (`render.yaml`)
 
 2. **Verify Frontend**:
    - Open your Vercel domain: `https://erp-barcode-frontend.vercel.app`.
-   - Log in using your ERP credentials (default admin credentials from database: `admin@admin.com` / `admin123` or your configured user).
+   - Log in using your ERP credentials (default admin credentials from database: `admin@admin.com` / `admin` or your configured user).
    - Test navigating to different pages (e.g. `/part_stock`, `/create_invoice`, `/erp_users`) and refresh the page to confirm SPA rewrites work seamlessly without 404s.
 
 ---
