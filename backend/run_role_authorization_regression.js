@@ -42,10 +42,10 @@ async function runRoleAuthorizationRegression() {
   // 1. Authenticate all 5 roles
   console.log('--- 1. Authenticating All 5 Roles ---');
   const admin = await login('admin@admin.com', 'admin');
-  const packing = await login('dpr@talbros.com', 'dpr');
-  const box = await login('fgs@talbros.com', 'fgs');
-  const invoice = await login('invoice@talbros.com', 'invoice');
-  const gate = await login('gate@talbros.com', 'gate');
+  const packing = await login('dpr@qloax.com', 'dpr');
+  const box = await login('fgs@qloax.com', 'fgs');
+  const invoice = await login('invoice@qloax.com', 'invoice');
+  const gate = await login('gate@qloax.com', 'gate');
   console.log('[PASS] All 5 role credentials verified.');
 
   // 2. Unauthenticated and Malformed Token tests

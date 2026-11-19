@@ -40,7 +40,7 @@ async function runRegression() {
 
     const gateLoginRes = await fetchJson(`${BASE_URL}/auth/login`, {
       method: 'POST',
-      body: JSON.stringify({ email: 'gate@talbros.com', password: 'gate' }),
+      body: JSON.stringify({ email: 'gate@qloax.com', password: 'gate' }),
     });
     const gateToken = gateLoginRes.data?.access_token;
 

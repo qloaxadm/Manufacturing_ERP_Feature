@@ -56,10 +56,10 @@ export const LoginPage: React.FC = () => {
     if (autoAuthRole && !user) {
       const roleCredentials: Record<string, [string, string]> = {
         admin: ['admin@admin.com', 'admin'],
-        packing: ['dpr@talbros.com', 'dpr'],
-        box: ['fgs@talbros.com', 'fgs'],
-        invoice: ['invoice@talbros.com', 'invoice'],
-        gate: ['gate@talbros.com', 'gate'],
+        packing: ['dpr@qloax.com', 'dpr'],
+        box: ['fgs@qloax.com', 'fgs'],
+        invoice: ['invoice@qloax.com', 'invoice'],
+        gate: ['gate@qloax.com', 'gate'],
       };
       const creds = roleCredentials[autoAuthRole.toLowerCase()] || roleCredentials.admin;
       login(creds[0], creds[1])
@@ -89,10 +89,10 @@ export const LoginPage: React.FC = () => {
 
   const presets = [
     { label: 'Admin', email: 'admin@admin.com', pass: 'admin', icon: Shield, color: '#dc2626', bg: '#fef2f2', darkColor: '#f87171', darkBg: 'rgba(239, 68, 68, 0.2)' },
-    { label: 'Packing', email: 'dpr@talbros.com', pass: 'dpr', icon: Package, color: '#d97706', bg: '#fffbeb', darkColor: '#fbbf24', darkBg: 'rgba(245, 158, 11, 0.2)' },
-    { label: 'Box', email: 'fgs@talbros.com', pass: 'fgs', icon: BoxIcon, color: '#2563eb', bg: '#eff6ff', darkColor: '#60a5fa', darkBg: 'rgba(59, 130, 246, 0.2)' },
-    { label: 'Invoice', email: 'invoice@talbros.com', pass: 'invoice', icon: FileText, color: '#7c3aed', bg: '#f5f3ff', darkColor: '#c084fc', darkBg: 'rgba(168, 85, 247, 0.2)' },
-    { label: 'Gate', email: 'gate@talbros.com', pass: 'gate', icon: Truck, color: '#059669', bg: '#ecfdf5', darkColor: '#34d399', darkBg: 'rgba(16, 185, 129, 0.2)' },
+    { label: 'Packing', email: 'dpr@qloax.com', pass: 'dpr', icon: Package, color: '#d97706', bg: '#fffbeb', darkColor: '#fbbf24', darkBg: 'rgba(245, 158, 11, 0.2)' },
+    { label: 'Box', email: 'fgs@qloax.com', pass: 'fgs', icon: BoxIcon, color: '#2563eb', bg: '#eff6ff', darkColor: '#60a5fa', darkBg: 'rgba(59, 130, 246, 0.2)' },
+    { label: 'Invoice', email: 'invoice@qloax.com', pass: 'invoice', icon: FileText, color: '#7c3aed', bg: '#f5f3ff', darkColor: '#c084fc', darkBg: 'rgba(168, 85, 247, 0.2)' },
+    { label: 'Gate', email: 'gate@qloax.com', pass: 'gate', icon: Truck, color: '#059669', bg: '#ecfdf5', darkColor: '#34d399', darkBg: 'rgba(16, 185, 129, 0.2)' },
   ];
 
   return (
@@ -352,7 +352,7 @@ export const LoginPage: React.FC = () => {
                 <input
                   type="email"
                   required
-                  placeholder="name@talbros.com"
+                  placeholder="name@qloax.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onFocus={() => setFocused('email')}

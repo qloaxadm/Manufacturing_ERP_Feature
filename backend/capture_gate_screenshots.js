@@ -36,7 +36,7 @@ async function captureGateScreenshots() {
     const loginRes = await fetch('http://localhost:5001/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'gate@talbros.com', password: 'gate' })
+      body: JSON.stringify({ email: 'gate@qloax.com', password: 'gate' })
     });
     const authData = await loginRes.json();
     if (!authData.access_token) {

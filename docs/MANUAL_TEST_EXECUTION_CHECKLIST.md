@@ -13,10 +13,10 @@
 | Role | Email | Password | Allowed Access Modules |
 |---|---|---|---|
 | **Admin** | `admin@admin.com` | `admin` | Full System Access (Masters, Users, All Operations, Reports) |
-| **Packing / DPR** | `dpr@talbros.com` | `dpr` | Part Master, Part Stock, Single Packing, Bulk Packing, View Packing |
-| **Box / FGS** | `fgs@talbros.com` | `fgs` | Create Box, Add Packing to Box, View Box, Customer List (read-only) |
-| **Invoice / Commercial** | `invoice@talbros.com` | `invoice` | Create Invoice, Add Box to Invoice, Lock Invoice |
-| **Gate Security** | `gate@talbros.com` | `gate` | Verify Invoice, Scan Box Match, Return Invoice, Gate-Out Report |
+| **Packing / DPR** | `dpr@qloax.com` | `dpr` | Part Master, Part Stock, Single Packing, Bulk Packing, View Packing |
+| **Box / FGS** | `fgs@qloax.com` | `fgs` | Create Box, Add Packing to Box, View Box, Customer List (read-only) |
+| **Invoice / Commercial** | `invoice@qloax.com` | `invoice` | Create Invoice, Add Box to Invoice, Lock Invoice |
+| **Gate Security** | `gate@qloax.com` | `gate` | Verify Invoice, Scan Box Match, Return Invoice, Gate-Out Report |
 
 ---
 

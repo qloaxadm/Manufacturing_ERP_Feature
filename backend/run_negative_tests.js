@@ -52,9 +52,9 @@ async function runNegativeTests() {
     };
   }
 
-  const boxAuth = await login('fgs@talbros.com', 'fgs');
-  const invAuth = await login('invoice@talbros.com', 'invoice');
-  const packAuth = await login('dpr@talbros.com', 'dpr');
+  const boxAuth = await login('fgs@qloax.com', 'fgs');
+  const invAuth = await login('invoice@qloax.com', 'invoice');
+  const packAuth = await login('dpr@qloax.com', 'dpr');
 
   const testResults = [];
 

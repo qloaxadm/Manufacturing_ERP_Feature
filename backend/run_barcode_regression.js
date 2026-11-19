@@ -51,9 +51,9 @@ async function runBarcodeRegression() {
     return { headers: { Authorization: `Bearer ${data.access_token}` } };
   }
 
-  const dpr = await login('dpr@talbros.com', 'dpr');
-  const fgs = await login('fgs@talbros.com', 'fgs');
-  const comm = await login('invoice@talbros.com', 'invoice');
+  const dpr = await login('dpr@qloax.com', 'dpr');
+  const fgs = await login('fgs@qloax.com', 'fgs');
+  const comm = await login('invoice@qloax.com', 'invoice');
 
   // 1. Check Packing Barcode Sequence (100000 + count)
   console.log('--- 1. Packing Barcode Sequence Rule (100000 + count) ---');

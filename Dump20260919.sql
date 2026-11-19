@@ -327,7 +327,7 @@ CREATE TABLE `userinfo` (
 
 LOCK TABLES `userinfo` WRITE;
 /*!40000 ALTER TABLE `userinfo` DISABLE KEYS */;
-INSERT INTO `userinfo` VALUES (3,'admin@admin.com','admin','admin','admin','admin',NULL,NULL,'2021-02-03 05:51:21',NULL,'yes','yes'),(4,'dpr@talbros.com','packing',NULL,'DPR','dpr',NULL,NULL,'2021-12-04 08:03:34',NULL,'yes','yes'),(5,'fgs@talbros.com','box',NULL,'FGS','fgs',NULL,NULL,'2021-12-04 08:03:58',NULL,'yes','yes'),(6,'invoice@talbros.com','invoice',NULL,'INVOICE','invoice',NULL,NULL,'2021-12-04 08:04:22',NULL,'yes','yes'),(7,'gate@talbros.com','gate',NULL,'GATE','gate',NULL,NULL,'2021-12-04 08:04:52',NULL,'yes','yes');
+INSERT INTO `userinfo` VALUES (3,'admin@admin.com','admin','admin','admin','admin',NULL,NULL,'2021-02-03 05:51:21',NULL,'yes','yes'),(4,'dpr@qloax.com','packing',NULL,'DPR','dpr',NULL,NULL,'2021-12-04 08:03:34',NULL,'yes','yes'),(5,'fgs@qloax.com','box',NULL,'FGS','fgs',NULL,NULL,'2021-12-04 08:03:58',NULL,'yes','yes'),(6,'invoice@qloax.com','invoice',NULL,'INVOICE','invoice',NULL,NULL,'2021-12-04 08:04:22',NULL,'yes','yes'),(7,'gate@qloax.com','gate',NULL,'GATE','gate',NULL,NULL,'2021-12-04 08:04:52',NULL,'yes','yes');
 /*!40000 ALTER TABLE `userinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 

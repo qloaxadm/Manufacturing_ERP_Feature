@@ -58,10 +58,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
           const roleCredentials: Record<string, [string, string]> = {
             admin: ['admin@admin.com', 'admin'],
-            packing: ['dpr@talbros.com', 'dpr'],
-            box: ['fgs@talbros.com', 'fgs'],
-            invoice: ['invoice@talbros.com', 'invoice'],
-            gate: ['gate@talbros.com', 'gate'],
+            packing: ['dpr@qloax.com', 'dpr'],
+            box: ['fgs@qloax.com', 'fgs'],
+            invoice: ['invoice@qloax.com', 'invoice'],
+            gate: ['gate@qloax.com', 'gate'],
           };
           const creds = roleCredentials[autoAuthRole.toLowerCase()] || roleCredentials.admin;
           const res = await api.post('/auth/login', { email: creds[0], password: creds[1] });
@@ -102,10 +102,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const switchRole = async (role: string) => {
     const roleCredentials: Record<string, [string, string]> = {
       admin: ['admin@admin.com', 'admin'],
-      packing: ['dpr@talbros.com', 'dpr'],
-      box: ['fgs@talbros.com', 'fgs'],
-      invoice: ['invoice@talbros.com', 'invoice'],
-      gate: ['gate@talbros.com', 'gate'],
+      packing: ['dpr@qloax.com', 'dpr'],
+      box: ['fgs@qloax.com', 'fgs'],
+      invoice: ['invoice@qloax.com', 'invoice'],
+      gate: ['gate@qloax.com', 'gate'],
     };
 
     const creds = roleCredentials[role.toLowerCase()];

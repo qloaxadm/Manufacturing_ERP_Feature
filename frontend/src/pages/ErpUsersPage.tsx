@@ -764,7 +764,7 @@ export const ErpUsersPage: React.FC = () => {
                           fontSize: '13px',
                           height: '38px',
                         }}
-                        placeholder="e.g. ramesh@talbros.com"
+                        placeholder="e.g. ramesh@qloax.com"
                         value={formData.user_email}
                         onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
                       />

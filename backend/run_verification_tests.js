@@ -32,10 +32,10 @@ async function main() {
   // ----------------------------------------------------
   const roles = [
     { email: 'admin@admin.com', pass: 'admin', role: 'admin' },
-    { email: 'dpr@talbros.com', pass: 'dpr', role: 'packing' },
-    { email: 'fgs@talbros.com', pass: 'fgs', role: 'box' },
-    { email: 'invoice@talbros.com', pass: 'invoice', role: 'invoice' },
-    { email: 'gate@talbros.com', pass: 'gate', role: 'gate' },
+    { email: 'dpr@qloax.com', pass: 'dpr', role: 'packing' },
+    { email: 'fgs@qloax.com', pass: 'fgs', role: 'box' },
+    { email: 'invoice@qloax.com', pass: 'invoice', role: 'invoice' },
+    { email: 'gate@qloax.com', pass: 'gate', role: 'gate' },
   ];
 
   const tokens = {};

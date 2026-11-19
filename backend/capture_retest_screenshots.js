@@ -74,7 +74,7 @@ async function captureRetestScreenshots() {
   console.log('Saved 03_retest_part_stock.png');
 
   console.log('--- 2. PACKING USER FLOW ---');
-  await performLogin('dpr@talbros.com', 'dpr');
+  await performLogin('dpr@qloax.com', 'dpr');
 
   // 4. Packing Creation Modal
   await page.goto('http://localhost:3000/create_packing', { waitUntil: 'networkidle2' });
@@ -113,7 +113,7 @@ async function captureRetestScreenshots() {
   console.log('Saved 06_retest_view_packing.png');
 
   console.log('--- 3. BOX / FGS USER FLOW ---');
-  await performLogin('fgs@talbros.com', 'fgs');
+  await performLogin('fgs@qloax.com', 'fgs');
 
   // 7. Create Box Page
   await page.goto('http://localhost:3000/create_box', { waitUntil: 'networkidle2' });
@@ -179,7 +179,7 @@ async function captureRetestScreenshots() {
   const currentBoxBarcode = currentBoxRow[0]?.barcode;
 
   console.log('--- 4. INVOICE USER FLOW ---');
-  await performLogin('invoice@talbros.com', 'invoice');
+  await performLogin('invoice@qloax.com', 'invoice');
 
   // 11. Create Invoice Page
   await page.goto('http://localhost:3000/create_invoice', { waitUntil: 'networkidle2' });
@@ -248,7 +248,7 @@ async function captureRetestScreenshots() {
   const createdInvBarcode = createdInvRow[0]?.barcode;
 
   console.log('--- 5. GATE USER FLOW ---');
-  await performLogin('gate@talbros.com', 'gate');
+  await performLogin('gate@qloax.com', 'gate');
 
   // 15. Gate Verify Invoice Page
   await page.goto('http://localhost:3000/verify_invoice', { waitUntil: 'networkidle2' });

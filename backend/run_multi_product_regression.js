@@ -53,10 +53,10 @@ async function runMultiProductRegression() {
     };
   }
 
-  const dpr = await login('dpr@talbros.com', 'dpr');
-  const fgs = await login('fgs@talbros.com', 'fgs');
-  const comm = await login('invoice@talbros.com', 'invoice');
-  const gate = await login('gate@talbros.com', 'gate');
+  const dpr = await login('dpr@qloax.com', 'dpr');
+  const fgs = await login('fgs@qloax.com', 'fgs');
+  const comm = await login('invoice@qloax.com', 'invoice');
+  const gate = await login('gate@qloax.com', 'gate');
 
   // -----------------------------------------------------------------
   // SCENARIO 1: Different Part + Multiple Packing Items in ONE Box

@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'talbros_barcode_erp_secret_key_2026';
-const adminToken = jwt.sign({ userId: 3, email: 'admin@talbros.com', type: 'admin', name: 'Admin' }, JWT_SECRET);
-const packingToken = jwt.sign({ userId: 4, email: 'packing@talbros.com', type: 'packing', name: 'Packing Operator' }, JWT_SECRET);
-const gateToken = jwt.sign({ userId: 7, email: 'gate@talbros.com', type: 'gate', name: 'Gate Operator' }, JWT_SECRET);
+const adminToken = jwt.sign({ userId: 3, email: 'admin@admin.com', type: 'admin', name: 'Admin' }, JWT_SECRET);
+const packingToken = jwt.sign({ userId: 4, email: 'packing@qloax.com', type: 'packing', name: 'Packing Operator' }, JWT_SECRET);
+const gateToken = jwt.sign({ userId: 7, email: 'gate@qloax.com', type: 'gate', name: 'Gate Operator' }, JWT_SECRET);
 
 async function postJson(url, data, token = adminToken) {
   const resp = await fetch('http://localhost:5001' + url, {

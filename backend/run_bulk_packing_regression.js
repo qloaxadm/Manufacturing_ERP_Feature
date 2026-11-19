@@ -53,8 +53,8 @@ async function runBulkPackingRegression() {
     };
   }
 
-  const packingAuth = await login('dpr@talbros.com', 'dpr');
-  const gateAuth = await login('gate@talbros.com', 'gate');
+  const packingAuth = await login('dpr@qloax.com', 'dpr');
+  const gateAuth = await login('gate@qloax.com', 'gate');
 
   // 1. Role authorization check: Gate user must be forbidden from creating bulk packing
   console.log('--- 1. Role Authorization Check ---');

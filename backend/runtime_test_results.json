@@ -1,7 +1,7 @@
 [
   {
     "test": "Test 1: Login with all 5 roles",
-    "input": "admin@admin.com, dpr@talbros.com, fgs@talbros.com, invoice@talbros.com, gate@talbros.com",
+    "input": "admin@admin.com, dpr@qloax.com, fgs@qloax.com, invoice@qloax.com, gate@qloax.com",
     "expected": "All 5 roles authenticate and return valid JWT with matching type",
     "actual": "Authenticated roles: admin, packing, box, invoice, gate",
     "status": "PASS"

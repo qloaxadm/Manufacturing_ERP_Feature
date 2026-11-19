@@ -52,10 +52,10 @@ async function runStockRegression() {
   }
 
   const admin = await login('admin@admin.com', 'admin');
-  const packUser = await login('dpr@talbros.com', 'dpr');
-  const boxUser = await login('fgs@talbros.com', 'fgs');
-  const invUser = await login('invoice@talbros.com', 'invoice');
-  const gateUser = await login('gate@talbros.com', 'gate');
+  const packUser = await login('dpr@qloax.com', 'dpr');
+  const boxUser = await login('fgs@qloax.com', 'fgs');
+  const invUser = await login('invoice@qloax.com', 'invoice');
+  const gateUser = await login('gate@qloax.com', 'gate');
 
   // Direct DB connection for state inspection
   const db = await mysql.createConnection({

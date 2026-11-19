@@ -11,10 +11,10 @@
 
 This phase focused on finalizing pending bug fixes, verifying legacy behavioral equivalence against the legacy PHP source code (`D:\Software_data\Software_data\barcode\application\controllers\Welcome.php`), and conducting an exhaustive multi-role verification across all 5 user roles:
 1. **ADMIN** (`admin@admin.com`)
-2. **PACKING / DPR** (`dpr@talbros.com`)
-3. **BOX / FGS** (`fgs@talbros.com`)
-4. **INVOICE / COMMERCIAL** (`invoice@talbros.com`)
-5. **GATE SECURITY** (`gate@talbros.com`)
+2. **PACKING / DPR** (`dpr@qloax.com`)
+3. **BOX / FGS** (`fgs@qloax.com`)
+4. **INVOICE / COMMERCIAL** (`invoice@qloax.com`)
+5. **GATE SECURITY** (`gate@qloax.com`)
 
 All verification was performed against the live NestJS backend (`http://localhost:5001`), the Vite/React frontend (`http://localhost:3000`), and the live MySQL database (`barcode` on port 3306). No mocks, fakes, or synthetic stubs were used. Baseline records were preserved with no destructive deletion, truncation, reset, or schema-destructive migration. Row counts increased only because additional records were created during the verification workflows.
 

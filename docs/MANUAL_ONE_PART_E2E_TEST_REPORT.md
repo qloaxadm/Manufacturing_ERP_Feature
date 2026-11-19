@@ -61,7 +61,7 @@ All UI interactions were executed via real Chrome browser automation at `http://
    - Starting Invoice Stock: `153`
 6. Logged out cleanly.
 
-### Role 2: Packing / DPR (`dpr@talbros.com`)
+### Role 2: Packing / DPR (`dpr@qloax.com`)
 1. Logged in as Packing / DPR operator.
 2. Navigated to `/create_packing`.
 3. Opened Create Packing modal, selected Part `1825` (`D16.064.34.0.PR`), entered Quantity `5`, and submitted.
@@ -70,7 +70,7 @@ All UI interactions were executed via real Chrome browser automation at `http://
 6. Opened packing barcode print preview and confirmed label data (`07_packing_barcode_preview.png`).
 7. Logged out cleanly.
 
-### Role 3: Box / FGS (`fgs@talbros.com`)
+### Role 3: Box / FGS (`fgs@qloax.com`)
 1. Logged in as Box / FGS operator.
 2. Navigated to `/create_box`, selected customer `Mahindra & Mahindra`, and created new box.
 3. Created Box Record: `ID: 80`, Barcode: `200078` with initial `lock_status = 'no'` (`08_create_box.png`).
@@ -80,7 +80,7 @@ All UI interactions were executed via real Chrome browser automation at `http://
 7. Clicked **Lock Box**. Modal confirmed lock. Verified `lock_status = 'yes'` and packed item remained visible with total quantity `5` intact (`11_box_after_lock.png`).
 8. Logged out cleanly.
 
-### Role 4: Invoice / Commercial (`invoice@talbros.com`)
+### Role 4: Invoice / Commercial (`invoice@qloax.com`)
 1. Logged in as Invoice / Commercial operator.
 2. Navigated to `/create_invoice`.
 3. Entered Invoice Number `MANUAL-E2E-870905`, Vehicle No `MH-12-AB-1234`, Customer `Mahindra & Mahindra`, Part `D16.064.34.0.PR`, and Total Qty `5`.
@@ -91,7 +91,7 @@ All UI interactions were executed via real Chrome browser automation at `http://
 8. Clicked **Lock Invoice**, confirmed in modal. Verified invoice successfully locked with `lock_status = 'yes'` (`15_locked_invoice.png`).
 9. Logged out cleanly.
 
-### Role 5: Gate Security (`gate@talbros.com`)
+### Role 5: Gate Security (`gate@qloax.com`)
 1. Logged in as Gate Security guard.
 2. Navigated to `/verify_invoice`.
 3. Scanned Invoice Barcode `300051`. Clicked Submit. Started Gate Verification Session (`Match ID: 23`) (`16_gate_invoice_verification.png`).

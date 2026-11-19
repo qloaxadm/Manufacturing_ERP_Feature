@@ -36,7 +36,7 @@ async function main() {
     const gateLoginRes = await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'gate@talbros.com', password: 'gate' }),
+      body: JSON.stringify({ email: 'gate@qloax.com', password: 'gate' }),
     });
     const gateData = await gateLoginRes.json();
     gateToken = gateData.access_token;

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'talbros_barcode_erp_secret_key_2026';
-const adminToken = jwt.sign({ userId: 3, email: 'admin@talbros.com', type: 'admin', name: 'Admin' }, JWT_SECRET);
+const adminToken = jwt.sign({ userId: 3, email: 'admin@admin.com', type: 'admin', name: 'Admin' }, JWT_SECRET);
 
 async function get(url) {
   const resp = await fetch('http://localhost:5001' + url, {

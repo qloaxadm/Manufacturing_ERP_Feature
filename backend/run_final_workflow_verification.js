@@ -91,8 +91,8 @@ async function runWorkflow() {
   // ----------------------------------------------------
   // STEP 2: USER 2 — PACKING / DPR
   // ----------------------------------------------------
-  console.log('\n--- STEP 2: USER 2 — PACKING / DPR (dpr@talbros.com) ---');
-  const packingUser = await login('dpr@talbros.com', 'dpr');
+  console.log('\n--- STEP 2: USER 2 — PACKING / DPR (dpr@qloax.com) ---');
+  const packingUser = await login('dpr@qloax.com', 'dpr');
   console.log(`[PASS] Packing user authenticated. Role: ${packingUser.user.type}`);
 
   // Count existing packing records to verify barcode rule: 100000 + count
@@ -123,8 +123,8 @@ async function runWorkflow() {
   // ----------------------------------------------------
   // STEP 3: USER 3 — BOX / FGS
   // ----------------------------------------------------
-  console.log('\n--- STEP 3: USER 3 — BOX / FGS (fgs@talbros.com) ---');
-  const boxUser = await login('fgs@talbros.com', 'fgs');
+  console.log('\n--- STEP 3: USER 3 — BOX / FGS (fgs@qloax.com) ---');
+  const boxUser = await login('fgs@qloax.com', 'fgs');
   console.log(`[PASS] Box user authenticated. Role: ${boxUser.user.type}`);
 
   // Count existing box records to verify barcode rule: 200000 + count
@@ -204,8 +204,8 @@ async function runWorkflow() {
   // ----------------------------------------------------
   // STEP 4: USER 4 — INVOICE / COMMERCIAL
   // ----------------------------------------------------
-  console.log('\n--- STEP 4: USER 4 — INVOICE / COMMERCIAL (invoice@talbros.com) ---');
-  const invoiceUser = await login('invoice@talbros.com', 'invoice');
+  console.log('\n--- STEP 4: USER 4 — INVOICE / COMMERCIAL (invoice@qloax.com) ---');
+  const invoiceUser = await login('invoice@qloax.com', 'invoice');
   console.log(`[PASS] Invoice user authenticated. Role: ${invoiceUser.user.type}`);
 
   // Unique invoice number for retest
@@ -264,8 +264,8 @@ async function runWorkflow() {
   // ----------------------------------------------------
   // STEP 5: USER 5 — GATE
   // ----------------------------------------------------
-  console.log('\n--- STEP 5: USER 5 — GATE (gate@talbros.com) ---');
-  const gateUser = await login('gate@talbros.com', 'gate');
+  console.log('\n--- STEP 5: USER 5 — GATE (gate@qloax.com) ---');
+  const gateUser = await login('gate@qloax.com', 'gate');
   console.log(`[PASS] Gate user authenticated. Role: ${gateUser.user.type}`);
 
   // Start verification by scanning invoice barcode

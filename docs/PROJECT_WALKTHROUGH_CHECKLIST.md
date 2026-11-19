@@ -32,10 +32,10 @@ Health check: http://localhost:5001/api/health
 | Role (`type`) | Email | Password | Sidebar areas |
 |---|---|---|---|
 | admin | admin@admin.com | admin | everything |
-| packing (DPR) | dpr@talbros.com | dpr | Part Master, Part Stock, Packing |
-| box (FGS) | fgs@talbros.com | fgs | Box, Customer list (read) |
-| invoice | invoice@talbros.com | invoice | Invoice |
-| gate | gate@talbros.com | gate | Verify Invoice, Gate-Out Report |
+| packing (DPR) | dpr@qloax.com | dpr | Part Master, Part Stock, Packing |
+| box (FGS) | fgs@qloax.com | fgs | Box, Customer list (read) |
+| invoice | invoice@qloax.com | invoice | Invoice |
+| gate | gate@qloax.com | gate | Verify Invoice, Gate-Out Report |
 
 All roles also get: Dashboard, Profile, Settings, Notifications, Activity History, Ask ERP.
 

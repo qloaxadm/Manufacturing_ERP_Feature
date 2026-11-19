@@ -53,10 +53,10 @@ async function runReturnRegression() {
     };
   }
 
-  const dpr = await login('dpr@talbros.com', 'dpr');
-  const fgs = await login('fgs@talbros.com', 'fgs');
-  const comm = await login('invoice@talbros.com', 'invoice');
-  const gate = await login('gate@talbros.com', 'gate');
+  const dpr = await login('dpr@qloax.com', 'dpr');
+  const fgs = await login('fgs@qloax.com', 'fgs');
+  const comm = await login('invoice@qloax.com', 'invoice');
+  const gate = await login('gate@qloax.com', 'gate');
 
   // 1. Role Authorization Check: Non-gate roles must be forbidden from executing return
   console.log('--- 1. Role Guard Check on Return Endpoint ---');

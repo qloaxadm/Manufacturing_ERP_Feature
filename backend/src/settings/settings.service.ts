@@ -10,7 +10,7 @@ export class SettingsService {
       plantLocation: 'Plant 2 - Gasket & Sealing Division',
       address: 'Plot No. 14, Industrial Area, Sector 7, Faridabad, Haryana 121006',
       gstin: '06AAACT2845L1Z8',
-      contactEmail: 'dispatch@talbros.com',
+      contactEmail: 'dispatch@qloax.com',
       contactPhone: '+91 129 406 7800',
     },
 

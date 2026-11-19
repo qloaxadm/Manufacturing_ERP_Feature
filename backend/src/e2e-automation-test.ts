@@ -61,7 +61,7 @@ async function runAutomationTests() {
   // 2.1 Rejection of invalid credentials
   const invalidLoginRes = await request('/api/auth/login', {
     method: 'POST',
-    body: { user_email: 'fake_user@talbros.com', user_password: 'wrong_password_999' },
+    body: { user_email: 'fake_user@qloax.com', user_password: 'wrong_password_999' },
   });
   recordTest('Auth & Security', 'Rejects invalid login credentials with 401', invalidLoginRes.status === 401);
 
@@ -84,11 +84,11 @@ async function runAutomationTests() {
   let packingToken = '';
   const packLogin = await request('/api/auth/login', {
     method: 'POST',
-    body: { user_email: 'dpr@talbros.com', user_password: 'dpr' },
+    body: { user_email: 'dpr@qloax.com', user_password: 'dpr' },
   });
   if ((packLogin.status === 200 || packLogin.status === 201) && packLogin.data?.access_token) {
     packingToken = packLogin.data.access_token;
-    recordTest('Auth & Security', 'Packing operator login successful (dpr@talbros.com)', true);
+    recordTest('Auth & Security', 'Packing operator login successful (dpr@qloax.com)', true);
   } else {
     recordTest('Auth & Security', 'Packing operator login', false, `Status ${packLogin.status}`);
   }
@@ -97,11 +97,11 @@ async function runAutomationTests() {
   let gateToken = '';
   const gateLogin = await request('/api/auth/login', {
     method: 'POST',
-    body: { user_email: 'gate@talbros.com', user_password: 'gate' },
+    body: { user_email: 'gate@qloax.com', user_password: 'gate' },
   });
   if ((gateLogin.status === 200 || gateLogin.status === 201) && gateLogin.data?.access_token) {
     gateToken = gateLogin.data.access_token;
-    recordTest('Auth & Security', 'Gate security officer login successful (gate@talbros.com)', true);
+    recordTest('Auth & Security', 'Gate security officer login successful (gate@qloax.com)', true);
   } else {
     recordTest('Auth & Security', 'Gate security login', false, `Status ${gateLogin.status}`);
   }

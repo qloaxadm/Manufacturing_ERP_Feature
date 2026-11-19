@@ -79,7 +79,7 @@ async function runCoreRegression() {
 
   // 2. PACKING / DPR
   console.log('\n--- 2. PACKING / DPR ROLE ---');
-  const packingUser = await login('dpr@talbros.com', 'dpr');
+  const packingUser = await login('dpr@qloax.com', 'dpr');
   const [packCountRows] = await db.query('SELECT COUNT(*) as cnt FROM packing');
   const expectedPackBarcode = String(100000 + packCountRows[0].cnt);
 
@@ -94,7 +94,7 @@ async function runCoreRegression() {
 
   // 3. BOX / FGS
   console.log('\n--- 3. BOX / FGS ROLE ---');
-  const boxUser = await login('fgs@talbros.com', 'fgs');
+  const boxUser = await login('fgs@qloax.com', 'fgs');
   const createdBox = await request('/boxes', {
     method: 'POST',
     headers: boxUser.headers,
@@ -148,7 +148,7 @@ async function runCoreRegression() {
 
   // 4. INVOICE / COMMERCIAL
   console.log('\n--- 4. INVOICE / COMMERCIAL ROLE ---');
-  const invoiceUser = await login('invoice@talbros.com', 'invoice');
+  const invoiceUser = await login('invoice@qloax.com', 'invoice');
   const invoiceNum = `INV-${runId}`;
   const createdInvoice = await request('/invoices', {
     method: 'POST',
@@ -186,7 +186,7 @@ async function runCoreRegression() {
 
   // 5. GATE SECURITY
   console.log('\n--- 5. GATE SECURITY ROLE ---');
-  const gateUser = await login('gate@talbros.com', 'gate');
+  const gateUser = await login('gate@qloax.com', 'gate');
   const match = await request('/verification/start', {
     method: 'POST',
     headers: gateUser.headers,

@@ -189,7 +189,7 @@ async function runManualE2EJourney() {
   // ROLE 2: PACKING / DPR
   // ==========================================
   console.log('\n--- ROLE 2: PACKING / DPR ---');
-  await performUiLogin('dpr@talbros.com', 'dpr');
+  await performUiLogin('dpr@qloax.com', 'dpr');
   await page.goto(`${BASE_UI}/create_packing`, { waitUntil: 'networkidle2' });
 
   // Open Add modal
@@ -238,7 +238,7 @@ async function runManualE2EJourney() {
   // ROLE 3: BOX / FGS
   // ==========================================
   console.log('\n--- ROLE 3: BOX / FGS ---');
-  await performUiLogin('fgs@talbros.com', 'fgs');
+  await performUiLogin('fgs@qloax.com', 'fgs');
   await page.goto(`${BASE_UI}/create_box`, { waitUntil: 'networkidle2' });
 
   // Select Part D16.064.34.0.PR and Customer Mahindra in Create Box
@@ -331,7 +331,7 @@ async function runManualE2EJourney() {
   // ROLE 4: INVOICE / COMMERCIAL
   // ==========================================
   console.log('\n--- ROLE 4: INVOICE / COMMERCIAL ---');
-  await performUiLogin('invoice@talbros.com', 'invoice');
+  await performUiLogin('invoice@qloax.com', 'invoice');
   await page.goto(`${BASE_UI}/create_invoice`, { waitUntil: 'networkidle2' });
   await page.waitForSelector('form select option[value="1825"]', { timeout: 15000 });
   await page.waitForFunction(() => !document.body.innerText.includes('Loading invoices...'), { timeout: 15000 });
@@ -439,7 +439,7 @@ async function runManualE2EJourney() {
   // ROLE 5: GATE SECURITY
   // ==========================================
   console.log('\n--- ROLE 5: GATE SECURITY ---');
-  await performUiLogin('gate@talbros.com', 'gate');
+  await performUiLogin('gate@qloax.com', 'gate');
   await page.goto(`${BASE_UI}/verify_invoice`, { waitUntil: 'networkidle2' });
 
   // 13.1 VERIFY INVOICE
