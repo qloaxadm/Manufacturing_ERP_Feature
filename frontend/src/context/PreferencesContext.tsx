@@ -80,7 +80,6 @@ const translations: Record<Language, Record<string, string>> = {
     actions: 'Actions',
     action: 'Action',
     overview: 'Overview',
-    erpTitle: 'Barcode Stock Management & ERP System',
     home: 'Home',
 
     // Sidebar Menus & Submenus
@@ -231,7 +230,6 @@ const translations: Record<Language, Record<string, string>> = {
     actions: 'कार्रवाई',
     action: 'कार्रवाई',
     overview: 'अवलोकन',
-    erpTitle: 'बारकोड स्टॉक प्रबंधन और ईआरपी प्रणाली',
     home: 'होम',
 
     // Sidebar Menus & Submenus
@@ -382,7 +380,6 @@ const translations: Record<Language, Record<string, string>> = {
     actions: 'कृती',
     action: 'कृती',
     overview: 'आढावा',
-    erpTitle: 'बारकोड स्टॉक मॅनेजमेंट आणि ईआरपी सिस्टीम',
     home: 'मुख्यपृष्ठ',
 
     // Sidebar Menus & Submenus

@@ -1,7 +1,7 @@
 {
   "name": "erp-barcode-backend",
   "version": "1.0.0",
-  "description": "Barcode Stock Management & ERP System Backend (NestJS + Express + MySQL)",
+  "description": "Forge by Qloax Backend (NestJS + Express + MySQL)",
   "scripts": {
     "build": "tsc",
     "start": "node dist/src/main.js",

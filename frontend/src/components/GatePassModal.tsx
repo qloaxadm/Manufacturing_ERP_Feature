@@ -288,7 +288,7 @@ export const GatePassModal: React.FC<GatePassModalProps> = ({ isOpen, onClose, d
                 TALBROS AUTOMOTIVE COMPONENTS LIMITED
               </div>
               <div style={{ fontSize: '12px', color: '#4b5563', marginTop: '2px' }}>
-                MANUFACTURING &amp; BARCODE ERP SYSTEM • OUTWARD DISPATCH GATE SECURITY
+                FORGE BY QLOAX • OUTWARD DISPATCH GATE SECURITY
               </div>
               <div
                 style={{

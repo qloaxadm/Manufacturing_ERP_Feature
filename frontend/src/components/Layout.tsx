@@ -313,8 +313,7 @@ export const Layout: React.FC = () => {
         className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}
       >
         <div className="brand-header">
-          <div className="brand-logo">ERP</div>
-          <div className="brand-text">Qloax ERP</div>
+          <div className="brand-text">Forge by Qloax</div>
         </div>
 
         <div 
@@ -709,9 +708,6 @@ export const Layout: React.FC = () => {
             >
               <Menu size={16} />
             </button>
-            <span className="navbar-erp-title">
-              {t('erpTitle')}
-            </span>
           </div>
 
           <div className="top-navbar-right">

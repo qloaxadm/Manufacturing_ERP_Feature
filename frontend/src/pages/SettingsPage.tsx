@@ -80,7 +80,7 @@ export const SettingsPage: React.FC = () => {
     gateVerificationMode: 'strict',
     autoPrintExitPass: true,
     gatePrinter: 'TSC_TTP244_Gate1',
-    companyName: 'Manufacturing & Barcode ERP Systems Ltd.',
+    companyName: 'Forge by Qloax',
     companyGst: '27AABCU9603R1ZM',
     companyEmail: 'operations@mfg-erp.internal',
     companyPhone: '+91 98765 43210',
